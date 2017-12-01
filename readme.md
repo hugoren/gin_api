@@ -13,7 +13,7 @@
   ### bin:
       编译后程序
   ### src:
-       >main主程序入口
+        main主程序入口
         router路由表
         apis
         models数据库模型
