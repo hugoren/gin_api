@@ -29,3 +29,5 @@
    cd main目录
    go install
 
+## 性能效果图
+![Alt text](http://dl2.iteye.com/upload/attachment/0128/0163/92043143-03cc-32ac-b6ce-359e34181794.png)
