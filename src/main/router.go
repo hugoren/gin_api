@@ -16,7 +16,7 @@ func initRouter() *gin.Engine {
 	router.GET("/user/get", api.GetUserApi)
 	router.GET("/user/query", api.QueryUserApi)
 	router.POST("/user/update", api.ModUserApi)
-	//router.DELETE("/person/delete", DelUserApi)
+	router.GET("/user/del", api.DelUserApi)
 
 	return router
 }

@@ -89,3 +89,21 @@ func ModUserApi(c *gin.Context) {
 		}
 	}
 }
+
+
+func DelUserApi(c *gin.Context) {
+	id := c.Query("id")
+	nid, err := strconv.Atoi(id)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{"retcode": 1, "stderr": err})
+	}
+	r, err := DelUser(nid)
+	if err != nil {
+		Error.Println(err)
+		c.JSON(http.StatusOK, gin.H{"retcode": 1, "stderr": err})
+
+	}else {
+		Info.Println("根据id删除用户成功")
+		c.JSON(http.StatusOK, gin.H{"retcode": 0, "stdout": r})
+	}
+}
