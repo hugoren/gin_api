@@ -4,10 +4,10 @@
 ## 框架
    gin
 
-##功能
-  ###restful api, token认证
-  ###mysql的curd
-  ###redis的事务锁
+## 功能
+  ### restful api, token认证
+  ### mysql的curd
+  ### redis的事务锁
 
 ##项目结构
   bin:
