@@ -119,15 +119,20 @@ type ParamIndex struct {
 }
 
 func IndexQuery(c *gin.Context) {
-    var token string
+
+	var token string
     token ="Pdasfafa_0943225fj*sdafjafakdjfajL9#$^$#"
-	t := c.Request.Header["Authorization"]
-    if len(t) == 0 {
+
+    t := c.Request.Header["Authorization"]
+
+	if len(t) == 0 {
 		c.JSON(http.StatusOK, gin.H{"retcode": 1, "stderr": "传token格式不对"})
 	}else {
 		var tokens string
 		tokens = t[0]
+
 		if tokens == token {
+
 			var p ParamIndex
 
 			if err := c.BindJSON(&p); err != nil {
