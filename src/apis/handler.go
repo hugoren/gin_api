@@ -120,7 +120,7 @@ type ParamIndex struct {
 
 func IndexQuery(c *gin.Context) {
     var token string
-    token =""
+    token =" "
 	t := c.Request.Header["Authorization"]
     if len(t) == 0 {
 		c.JSON(http.StatusOK, gin.H{"retcode": 1, "stderr": "传token格式不对"})
