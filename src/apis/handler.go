@@ -119,28 +119,41 @@ type ParamIndex struct {
 }
 
 func IndexQuery(c *gin.Context) {
+    var token string
+    token =""
+	t := c.Request.Header["Authorization"]
+    if len(t) == 0 {
+		c.JSON(http.StatusOK, gin.H{"retcode": 1, "stderr": "传token格式不对"})
+	}else {
+		var t1 string
+		t1 = t[0]
+		if t1 == token {
+			var p ParamIndex
 
-	var p ParamIndex
-	if err := c.BindJSON(&p); err != nil {
-		Error.Println("取不到参数")
-		c.JSON(http.StatusOK, gin.H{"retcode": 1, "stderr": "取不到参数"})
-	} else {
-		if p.Instanc == "advert" {
-			r, err := QueryAdvertIndex(p.Instanc, p.Sql)
-			if err != nil {
-				c.JSON(http.StatusOK, gin.H{"retcode": 1, "stderr": err})
+			if err := c.BindJSON(&p); err != nil {
+				Error.Println("取不到参数")
+				c.JSON(http.StatusOK, gin.H{"retcode": 1, "stderr": "取不到参数"})
 			} else {
-				c.JSON(http.StatusOK, gin.H{"retcode": 0, "stdout": r})
-			}
-		} else if p.Instanc == "eshop" {
-			r, err := QueryEshopIndex(p.Instanc, p.Sql)
-			if err != nil {
-				c.JSON(http.StatusOK, gin.H{"retcode": 1, "stderr": err})
-			} else {
-				c.JSON(http.StatusOK, gin.H{"retcode": 0, "stdout": r})
+				if p.Instanc == "advert" {
+					r, err := QueryAdvertIndex(p.Instanc, p.Sql)
+					if err != nil {
+						c.JSON(http.StatusOK, gin.H{"retcode": 1, "stderr": err})
+					} else {
+						c.JSON(http.StatusOK, gin.H{"retcode": 0, "stdout": r})
+					}
+				} else if p.Instanc == "eshop" {
+					r, err := QueryEshopIndex(p.Instanc, p.Sql)
+					if err != nil {
+						c.JSON(http.StatusOK, gin.H{"retcode": 1, "stderr": err})
+					} else {
+						c.JSON(http.StatusOK, gin.H{"retcode": 0, "stdout": r})
+					}
+				} else {
+					c.JSON(http.StatusOK, gin.H{"retcode": 1, "stderr": "找不到对应的数据库实例"})
+				}
 			}
 		} else {
-			c.JSON(http.StatusOK, gin.H{"retcode": 1, "stderr": "找不到对应的数据库实例"})
+			c.JSON(http.StatusOK, gin.H{"retcode": 1, "stderr": "token不对"})
 		}
 	}
 }

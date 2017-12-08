@@ -15,7 +15,7 @@ func init() {
 	// 根据不同的环境读取数据库连接
 	var env string
     env = os.Getenv("GOENV")
-    Info.Println(env)
+    Info.Println("当前环境变量是:", env)
 	var err error
 
 	if env == "prod" {
