@@ -125,14 +125,14 @@ func IndexQuery(c *gin.Context) {
 		Error.Println("取不到参数")
 		c.JSON(http.StatusOK, gin.H{"retcode": 1, "stderr": "取不到参数"})
 	} else {
-		if p.Instanc == "Advert" {
+		if p.Instanc == "advert" {
 			r, err := QueryAdvertIndex(p.Instanc, p.Sql)
 			if err != nil {
 				c.JSON(http.StatusOK, gin.H{"retcode": 1, "stderr": err})
 			} else {
 				c.JSON(http.StatusOK, gin.H{"retcode": 0, "stdout": r})
 			}
-		} else if p.Instanc == "Eshop" {
+		} else if p.Instanc == "eshop" {
 			r, err := QueryEshopIndex(p.Instanc, p.Sql)
 			if err != nil {
 				c.JSON(http.StatusOK, gin.H{"retcode": 1, "stderr": err})

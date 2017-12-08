@@ -16,7 +16,7 @@ func main() {
 	//router.LoadHTMLGlob("/Users/admin/devops_go/gin_api/gopath/src/templates/html/*")
 	//router.Run(":30000")
 	s := &http.Server{
-		Addr:           ":30000",
+		Addr:           ":10009",
 		Handler:        router,
 		ReadTimeout:    30 * time.Second,
 		WriteTimeout:   30 * time.Second,
