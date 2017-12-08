@@ -29,9 +29,9 @@ func GetUser() (users []User, err error) {
 		return users, err
 	}
 	for rows.Next() {
-		var person User
-		rows.Scan(&person.Id, &person.Username, &person.Passwd)
-		users = append(users, person)
+		var user User
+		rows.Scan(&user.Id, &user.Username, &user.Passwd)
+		users = append(users, user)
 	}
 	if err = rows.Err(); err != nil {
 		return users, err
