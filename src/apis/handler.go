@@ -125,11 +125,22 @@ func IndexQuery(c *gin.Context) {
 		Error.Println("取不到参数")
 		c.JSON(http.StatusOK, gin.H{"retcode": 1, "stderr": "取不到参数"})
 	} else {
-		r , err := QueryDbIndex( p.Instanc, p.Sql)
-		if err != nil {
-			c.JSON(http.StatusOK, gin.H{"retcode": 1, "stderr": err})
+		if p.Instanc == "Advert" {
+			r, err := QueryAdvertIndex(p.Instanc, p.Sql)
+			if err != nil {
+				c.JSON(http.StatusOK, gin.H{"retcode": 1, "stderr": err})
+			} else {
+				c.JSON(http.StatusOK, gin.H{"retcode": 0, "stdout": r})
+			}
+		} else if p.Instanc == "Eshop" {
+			r, err := QueryEshopIndex(p.Instanc, p.Sql)
+			if err != nil {
+				c.JSON(http.StatusOK, gin.H{"retcode": 1, "stderr": err})
+			} else {
+				c.JSON(http.StatusOK, gin.H{"retcode": 0, "stdout": r})
+			}
 		} else {
-			c.JSON(http.StatusOK, gin.H{"retcode": 0, "stdout": r})
+			c.JSON(http.StatusOK, gin.H{"retcode": 1, "stderr": "找不到对应的数据库实例"})
 		}
 	}
 }

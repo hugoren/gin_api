@@ -9,7 +9,8 @@ import (
 func main() {
 
 	db.RedisConn()
-	defer db.SqlDB.Close()
+	defer db.AdvertSqlDB.Close()
+	defer db.EshopSqlDB.Close()
 	router := initRouter()
 	//router.LoadHTMLFiles("template/index.html")
 	//router.LoadHTMLGlob("/Users/admin/devops_go/gin_api/gopath/src/templates/html/*")

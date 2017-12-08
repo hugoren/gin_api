@@ -13,7 +13,7 @@ type User struct {
 }
 
 func (p *User) AddUser() (result string, err error) {
-	rs, err := db.SqlDB.Exec("INSERT INTO user(username, passwd) VALUES (?, ?)", p.Username, p.Passwd)
+	rs, err := db.AdvertSqlDB.Exec("INSERT INTO user(username, passwd) VALUES (?, ?)", p.Username, p.Passwd)
 	fmt.Println(rs)
 	if err != nil {
 		return "用户注册失败", err
@@ -23,7 +23,7 @@ func (p *User) AddUser() (result string, err error) {
 
 func GetUser() (users []User, err error) {
 	users = make([]User, 0)
-	rows, err := db.SqlDB.Query("SELECT * FROM user")
+	rows, err := db.AdvertSqlDB.Query("SELECT * FROM user")
 	defer rows.Close()
 	if err != nil {
 		return users, err
@@ -41,7 +41,7 @@ func GetUser() (users []User, err error) {
 
 func QueryUser(id int) (p User, err error) {
 	var u User
-	db.SqlDB.QueryRow("SELECT * FROM user where id=?", id).Scan(
+	db.AdvertSqlDB.QueryRow("SELECT * FROM user where id=?", id).Scan(
 		&u.Id, &u.Username, &u.Passwd,
 	)
 	return  u, err
@@ -50,7 +50,7 @@ func QueryUser(id int) (p User, err error) {
 
 func (p *User) ModUser() (result string, err error) {
 	//var person Person
-	stmt, err := db.SqlDB.Prepare("UPDATE user SET username=?, passwd=? WHERE id=?")
+	stmt, err := db.AdvertSqlDB.Prepare("UPDATE user SET username=?, passwd=? WHERE id=?")
 	defer stmt.Close()
 	if err != nil {
 		return "预修改用户信息失败", err
@@ -70,7 +70,7 @@ func (p *User) ModUser() (result string, err error) {
 
 
 func DelUser(id int) (s string, err error) {
-	rs, err := db.SqlDB.Exec("DELETE FROM user WHERE id=?", id)
+	rs, err := db.AdvertSqlDB.Exec("DELETE FROM user WHERE id=?", id)
 	if err != nil {
 		Error.Println(err)
 		return "删除用户信息失败", err
